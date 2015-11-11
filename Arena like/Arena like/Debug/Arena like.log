@@ -1,0 +1,22 @@
+﻿Build started 11/11/2015 23:06:58.
+     1>Project "C:\Users\Hilze\documents\visual studio 2015\Projects\Arena like\Arena like\Arena like.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\CL.exe /c /I"../resources/resources/sfml-include" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\" /Fd"Debug\vc140.pdb" /Gd /TP /analyze- /errorReport:prompt Base.cpp TileMap.cpp
+         TileMap.cpp
+         Base.cpp
+         Generating Code...
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Hilze\documents\visual studio 2015\Projects\Arena like\Debug\Arena like.exe" /INCREMENTAL /NOLOGO /LIBPATH:"../resources/resources/sfml-lib" "sfml-window-d.lib" "sfml-system-d.lib" "sfml-audio-d.lib" "sfml-network-d.lib" "sfml-graphics-d.lib" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /Debug /PDB:"C:\Users\Hilze\documents\visual studio 2015\Projects\Arena like\Debug\Arena like.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Hilze\documents\visual studio 2015\Projects\Arena like\Debug\Arena like.lib" /MACHINE:X86 Debug\Base.obj
+         Debug\Bullet.obj
+         Debug\Enemy.obj
+         Debug\main.obj
+         Debug\Menu.obj
+         Debug\Player.obj
+         Debug\TileMap.obj
+         Debug\Window.obj
+         Arena like.vcxproj -> C:\Users\Hilze\documents\visual studio 2015\Projects\Arena like\Debug\Arena like.exe
+     1>Done Building Project "C:\Users\Hilze\documents\visual studio 2015\Projects\Arena like\Arena like\Arena like.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:02.85
