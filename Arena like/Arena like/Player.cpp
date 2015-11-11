@@ -76,6 +76,8 @@ Player::~Player()
 
 void Player::respawn()
 {
+	respawnBlocks = true;
+
 	position = { startPosition.x, startPosition.y };
 
 	body->setPosition(position.x, position.y);
@@ -99,7 +101,6 @@ void Player::respawn()
 		visibleTimer = 0.f;
 		spawning = false;
 		visible = true;
-		respawnBlocks = true;
 	}
 
 	canJump = true;
@@ -209,7 +210,12 @@ void Player::update()
 		map->changeColTile(12, 15, map->RESPAWN_BLOCK);
 		map->changeColTile(12, 16, map->RESPAWN_BLOCK);
 
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+		int tempX, tempY;
+
+		tempX = int(position.x / map->tileSize.x);
+		tempY = int(position.y / map->tileSize.y);
+
+		if (tempX < 14 || tempX > 16 || sf::Keyboard::isKeyPressed(sf::Keyboard::W))
 		{
 			respawnBlocks = false;
 			map->changeTile(12, 15, 0);

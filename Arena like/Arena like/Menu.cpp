@@ -22,6 +22,21 @@ Menu::Menu(Window* window)
 	resolutions.push_back(hv::size(1360, 768));
 	resolutions.push_back(hv::size(1920, 1200));
 
+	vOptions.push_back("RESOLUTION");
+	vOptions.push_back("FULL SCREEN");
+	vOptions.push_back("SOUND");
+	vOptions.push_back("VOLUME");
+	vOptions.push_back("RETURN AND ACCEPT");
+
+	vMainMenu.push_back("START GAME");
+	vMainMenu.push_back("OPTIONS");
+	vMainMenu.push_back("EXIT");
+
+	vLevelSelect.push_back("LEVEL ONE");
+	vLevelSelect.push_back("LEVEL TWO");
+	vLevelSelect.push_back("LEVEL THREE");
+	vLevelSelect.push_back("BACK");
+
 	hv::size temp = window->screenSize;
 
 	for (int i = 0; i < resolutions.size(); i++)
@@ -57,14 +72,6 @@ void Menu::draw()
 {
 	mainMap->drawMap();
 
-	/*for (int i = 0; i < screenResolutionString.size(); i++)
-	{
-		number->setUVRect(screenResolutionString[i] - 48, 0);
-		number->setPosition(window->screenSize.x / 2 + (-float(screenResolutionString.size()) / 2 + i) * number->size.x, mainMap->offset * 2 + mainMap->tileSize.y * 10 );
-		if(screenResolutionString[i] >= 48)
-			number->draw();
-	}*/
-
 	menuOptions();
 }
 
@@ -77,10 +84,13 @@ void Menu::checkKeyboardInput()
 		selectedItem--;
 		if (!inOptions && !inLevelSelect)
 			if (selectedItem < 0)
-				selectedItem = 2;
-		if (inOptions || inLevelSelect)
+				selectedItem = vMainMenu.size() - 1;
+		if (inOptions)
 			if (selectedItem < 0)
-				selectedItem = 3;
+				selectedItem = vOptions.size() - 1;
+		if(inLevelSelect)
+			if (selectedItem < 0)
+				selectedItem = vLevelSelect.size() - 1;
 	}
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) && !pressedDown)
@@ -89,10 +99,13 @@ void Menu::checkKeyboardInput()
 
 		selectedItem++;
 		if(!inOptions && !inLevelSelect)
-			if (selectedItem > 2)
+			if (selectedItem > vMainMenu.size() - 1)
 				selectedItem = 0;
-		if(inOptions || inLevelSelect)
-			if (selectedItem > 3)
+		if(inOptions)
+			if (selectedItem > vOptions.size() - 1)
+				selectedItem = 0;
+		if (inLevelSelect)
+			if (selectedItem > vLevelSelect.size() - 1)
 				selectedItem = 0;
 	}
 
@@ -102,45 +115,69 @@ void Menu::checkKeyboardInput()
 
 		if (!inOptions && !inLevelSelect)
 		{
-			if (selectedItem == 0)
+			switch (selectedItem)
+			{
+			case(0) :
 				inLevelSelect = !inLevelSelect;
-			else if (selectedItem == 1)
-				inOptions = !inOptions,
+				break;
+			case(1) :
+				inOptions = !inOptions;
 				selectedItem = 0;
-			else if (selectedItem == 2)
+				break;
+			case(2) :
 				window->close();
+				break;
+			}
 		}
 		else if(inOptions)
 		{
-			if (selectedItem == 0)
+			switch (selectedItem)
 			{
+			case(0):
 				currentResolution++;
 				if (currentResolution > resolutions.size() - 1)
 					currentResolution = 0;
-			}
-			else if (selectedItem == 1)
-				playSound = !playSound;
-			else if (selectedItem == 2)
+				break;
+			case(1) :
 				window->fullScreen = !window->fullScreen;
-			else if (selectedItem == 3)
+				break;
+			case(2) :
+				playMusic = !playMusic;
+				break;
+			case(3):
+				volume++;
+				if (volume > 10)
+					volume = 0;
+				break;
+			case(4):
 				inOptions = !inOptions,
 				selectedItem = 0,
 				changeScreenSize = true;
+				break;
+			}
+				
 		}
 		else if (inLevelSelect)
 		{
-			if (selectedItem == 0)
-				inMenu = false,
+			switch (selectedItem)
+			{
+			case(0) :
+				inMenu = false;
 				level = 1;
-			else if (selectedItem == 1)
-				inMenu = false,
+				break;
+			case(1) :
+				inMenu = false;
 				level = 2;
-			else if (selectedItem == 2)
-				inMenu = false,
+				break;
+			case(2) :
+				inMenu = false;
 				level = 3;
-			else if (selectedItem == 3)
-				inLevelSelect = !inLevelSelect,
+				break;
+			case(3) :
+				inLevelSelect = !inLevelSelect;
 				selectedItem = 0;
+				break;
+			}
 		}
 	}
 
@@ -172,49 +209,43 @@ void Menu::menuOptions()
 
 	if (!inOptions && !inLevelSelect)
 	{
-		drawString(StartGame, letter, 1, 0, 7);
-
-		drawString(Options, letter, 1, 1, 9);
-
-		drawString(Exit, letter, 1, 2, 11);
+		for (int i = 0; i < vMainMenu.size(); i++)
+			drawString(vMainMenu[i], letter, 1, i, 7 + i * 2);
 	}
 	else if(inOptions)
 	{
-		drawString(resolution, letter, 1, 0, 7);
+		for (int i = 0; i < vOptions.size(); i++)
+			drawString(vOptions[i], letter, 1, i, 7 + i * 2);
 		
+		//RESOLUTION
 		resolutionNumber = to_string(int(resolutions[currentResolution].x)) + " " + to_string(int(resolutions[currentResolution].y));
 
 		drawString(resolutionNumber, number2, 0, 8);
 
-		drawString(sound, letter, 1, 1, 9);
-
-		if (playSound)
-			soundState = "TRUE";
-		else
-			soundState = "FALSE";
-
-		drawString(soundState, letter2, 1, 10);
-
-		drawString(fullScreen, letter, 1, 2, 11);
-
+		//FULLSCREEN
 		if (window->fullScreen)
 			fullScreenState = "TRUE";
 		else
 			fullScreenState = "FALSE";
 
-		drawString(fullScreenState, letter2, 1, 12);
+		drawString(fullScreenState, letter2, 1, 10);
 
-		drawString(back, letter, 1, 3, 13);
+		//PLAY MUSIC
+		if (playMusic)
+			soundState = "TRUE";
+		else
+			soundState = "FALSE";
+
+		drawString(soundState, letter2, 1, 12);
+
+		//VOLUME
+		volumeState = to_string(volume * 10);
+		drawString(volumeState, number2, 0, 14);
 	}
 	else if (inLevelSelect)
 	{
-		drawString(Level1, letter, 1, 0, 7);
-
-		drawString(Level2, letter, 1, 1, 9);
-
-		drawString(Level3, letter, 1, 2, 11);
-
-		drawString(LevelBack, letter, 1, 3, 13);
+		for (int i = 0; i < vLevelSelect.size(); i++)
+			drawString(vLevelSelect[i], letter, 1, i, 7 + i * 2);
 	}
 }
 

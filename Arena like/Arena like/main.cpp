@@ -27,6 +27,16 @@ int main()
 		if (menu->inMenu)
 		{
 			menu->update();
+			if (menu->playMusic)
+				if (bMusic->Stopped == bMusic->getStatus())
+					bMusic->play();
+			if (!menu->playMusic)
+				if (bMusic->Playing == bMusic->getStatus())
+					bMusic->stop();
+
+			bMusic->pause();
+			bMusic->setVolume(float(menu->volume * 10));
+			bMusic->play();
 
 			if (!menu->inMenu)
 			{

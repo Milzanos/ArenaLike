@@ -23,6 +23,8 @@ public:
 	bool inMenu = true;
 	bool changeScreenSize = true;
 	int level = 1;
+	bool playMusic = true;
+	int volume = 7;
 
 private:
 	Window* window;
@@ -34,22 +36,14 @@ private:
 	Base* letter2;
 	string gameName = "ARENA BOXES";
 	
-	string StartGame = "START GAME";
-	string Options = "OPTIONS";
-	string Exit = "EXIT";
+	vector<string> vMainMenu;
+	vector<string> vLevelSelect;
+	vector<string> vOptions;
 
-	string Level1 = "LEVEL ONE";
-	string Level2 = "LEVEL TWO";
-	string Level3 = "LEVEL THREE";
-	string LevelBack = "BACK";
-	
-	string resolution = "RESOLUTION";
 	string resolutionNumber;
-	string fullScreen = "FULL SCREEN";
 	string fullScreenState;
-	string sound = "SOUND";
 	string soundState;
-	string back = "RETURN AND ACCEPT";
+	string volumeState;
 
 	int selectedItem = 0;
 	bool pressedUp = false;
@@ -57,7 +51,6 @@ private:
 	bool pressedSpace = false;
 	bool inOptions = false;
 	bool inLevelSelect = false;
-	bool playSound = true;
 	int currentResolution = -1;
 	vector<hv::size> resolutions;
 };
