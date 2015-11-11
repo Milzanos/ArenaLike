@@ -44,7 +44,6 @@ local.properties
 # Build results
 
 [Dd]ebug/
-[Rr]elease/
 x64/
 build/
 [Bb]in/
@@ -214,3 +213,10 @@ pip-log.txt
 
 #Mr Developer
 .mr.developer.cfg
+Arena like/Arena like/Release/Arena like.tlog/Arena like.lastbuildstate
+Arena like/Arena like/Release/Arena like.tlog/CL.read.1.tlog
+Arena like/Arena like/Release/Arena like.tlog/link.read.1.tlog
+Arena like/Arena like/Release/Arena like.tlog/CL.command.1.tlog
+Arena like/Arena like/Release/Arena like.tlog/CL.write.1.tlog
+Arena like/Arena like/Release/Arena like.tlog/link.command.1.tlog
+Arena like/Arena like/Release/Arena like.tlog/link.write.1.tlog
