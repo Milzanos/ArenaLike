@@ -205,23 +205,29 @@ void Player::update()
 
 	if (respawnBlocks)
 	{
-		map->changeTile(12, 15, 23);
-		map->changeTile(12, 16, 24);
-		map->changeColTile(12, 15, map->RESPAWN_BLOCK);
-		map->changeColTile(12, 16, map->RESPAWN_BLOCK);
+		if (map->returnTile(12, 15) == 0 && map->returnTile(12, 16) == 0)
+		{
+			map->changeTile(12, 15, 23);
+			map->changeTile(12, 16, 24);
+			map->changeColTile(12, 15, map->RESPAWN_BLOCK);
+			map->changeColTile(12, 16, map->RESPAWN_BLOCK);
+		}
 
 		int tempX, tempY;
 
 		tempX = int(position.x / map->tileSize.x);
 		tempY = int(position.y / map->tileSize.y);
 
-		if (tempX < 14 || tempX > 16 || sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+		if (map->returnTile(12, 15) == 23 && map->returnTile(12, 16) == 24)
 		{
-			respawnBlocks = false;
-			map->changeTile(12, 15, 0);
-			map->changeTile(12, 16, 0);
-			map->changeColTile(12, 15, map->NOTHING);
-			map->changeColTile(12, 16, map->NOTHING);
+			if (tempX < 14 || tempX > 16 || sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+			{
+				respawnBlocks = false;
+				map->changeTile(12, 15, 0);
+				map->changeTile(12, 16, 0);
+				map->changeColTile(12, 15, map->NOTHING);
+				map->changeColTile(12, 16, map->NOTHING);
+			}
 		}
 	}
 

@@ -88,7 +88,7 @@ void TileMap::loadMap(string fileName)
 	{
 		if (ch != '\n')
 		{
-			map[row][pos] = ch - 97;
+			map[row][pos] = ch - 65;
 
 			switch (map[row][pos])
 			{
@@ -105,6 +105,9 @@ void TileMap::loadMap(string fileName)
 				colMap[row][pos] = WALL;
 				break;
 			}
+
+			if (map[row][pos] > 30)
+				colMap[row][pos] = NOTHING;
 
 			background[row][pos] = rand() % 4;
 

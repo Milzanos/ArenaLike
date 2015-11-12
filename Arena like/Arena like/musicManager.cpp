@@ -17,11 +17,11 @@ musicManager::~musicManager()
 
 void musicManager::updateSound(int volume, bool state)
 {
-	playMusic = state;
-	if (state)
+	//playMusic = state;
+	if (playMusic)
 		if (music->Paused == music->getStatus())
 			music->play();
-	if (!state)
+	if (!playMusic)
 		if (music->Playing == music->getStatus())
 			music->stop();
 
