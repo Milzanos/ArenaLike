@@ -101,6 +101,9 @@ void TileMap::loadMap(string fileName)
 			case(22) :
 				colMap[row][pos] = SLOW;
 				break;
+			case(23) :
+				colMap[row][pos] = JUMP;
+				break;
 			default:
 				colMap[row][pos] = WALL;
 				break;
