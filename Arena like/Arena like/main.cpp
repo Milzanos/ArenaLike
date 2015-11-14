@@ -33,7 +33,7 @@ int main()
 					delete player,
 					player = NULL;
 
-				player = new Player(menu->level, window, { 0.5f, 0.5f });
+				player = new Player(menu->level, window, m_manager, { 0.5f, 0.5f });
 				m_manager->setLevelMusic(menu->level);
 			}
 		}
@@ -43,7 +43,7 @@ int main()
 
 			if(player->resetPlayer)
 				delete player,
-				player = new Player(menu->level, window, { 0.5f, 0.5f });	
+				player = new Player(menu->level, window, m_manager, { 0.5f, 0.5f });
 
 			if (player->returnToMenu || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
 				menu->reset(),

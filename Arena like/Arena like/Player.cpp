@@ -2,11 +2,12 @@
 
 
 
-Player::Player(int lvl, Window* window, hv::position position)
+Player::Player(int lvl, Window* window, musicManager* mManager, hv::position position)
 {
 	map = new TileMap("../resources/images/sslvl" + to_string(lvl), window);
 	map->loadMap("../resources/maps/map" + to_string(lvl) + ".MAP");
 	this->window = window;
+	this->mManager = mManager;
 	this->position = { window->screenSize.x * position.x, window->screenSize.y * position.y + map->offset};
 	this->startPosition = this->position;
 	speedAcc = map->tileSize.x / speedAcc;
@@ -23,8 +24,13 @@ Player::Player(int lvl, Window* window, hv::position position)
 	number = new Base(window, map, { window->screenSize.x / 2 - map->tileSize.x / 2, map->tileSize.y * 4 + map->offset * 2 }, "../resources/images/numbers.png");
 	number2 = new Base(window, map, { window->screenSize.x / 2 - map->tileSize.x / 2, map->tileSize.y * 4 + map->offset * 2 }, "../resources/images/numbers.png");
 
-	s_bullet = new sf::Music;
+	s_bullet = new sf::Music();
 	s_bullet->openFromFile("../resources/sounds/gun.wav");
+	s_bullet->setLoop(false);
+	s_bullet->setVolume(mManager->volume);
+	if (!mManager->playMusic)
+		s_bullet->setVolume(0);
+	s_bullet->pause();
 
 	texture = new sf::Texture;
 	texture->loadFromFile("../resources/images/player.png");

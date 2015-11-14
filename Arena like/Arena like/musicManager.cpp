@@ -17,6 +17,7 @@ musicManager::~musicManager()
 
 void musicManager::updateSound(int volume, bool state)
 {
+	this->volume = volume * 10;
 	playMusic = state;
 	if (playMusic)
 		if (music->Paused == music->getStatus())

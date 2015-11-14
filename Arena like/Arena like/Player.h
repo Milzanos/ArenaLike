@@ -5,11 +5,12 @@
 #include "Window.h"
 #include "TileMap.h"
 #include "Base.h"
+#include "musicManager.h"
 
 class Player
 {
 public:
-	Player(int lvl, Window* window, hv::position position);
+	Player(int lvl, Window* window, musicManager* mManager, hv::position position);
 	~Player();
 
 	void update();
@@ -41,6 +42,7 @@ public:
 private:
 	TileMap* map = NULL;
 	Window* window = NULL;
+	musicManager* mManager = NULL;
 
 	hv::position position = { 0.f,0.f };
 	hv::position startPosition = { 0.f,0.f };

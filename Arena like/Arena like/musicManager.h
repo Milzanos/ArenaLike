@@ -9,7 +9,9 @@ public:
 	void updateSound(int volume, bool state);
 	void setLevelMusic(int level);
 
-private:
+public:
+	int volume = 0;
 	bool playMusic = false;
+private:
 	sf::Music* music;
 };
