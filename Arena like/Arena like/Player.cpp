@@ -23,6 +23,9 @@ Player::Player(int lvl, Window* window, hv::position position)
 	number = new Base(window, map, { window->screenSize.x / 2 - map->tileSize.x / 2, map->tileSize.y * 4 + map->offset * 2 }, "../resources/images/numbers.png");
 	number2 = new Base(window, map, { window->screenSize.x / 2 - map->tileSize.x / 2, map->tileSize.y * 4 + map->offset * 2 }, "../resources/images/numbers.png");
 
+	s_bullet = new sf::Music;
+	s_bullet->openFromFile("../resources/sounds/gun.wav");
+
 	texture = new sf::Texture;
 	texture->loadFromFile("../resources/images/player.png");
 	textureGun = new sf::Texture;
@@ -59,6 +62,7 @@ Player::~Player()
 	delete map;
 	delete textureBox;
 	delete box;
+	delete s_bullet;
 
 	for (int i = 0; i < enemies.size(); i++)
 		delete enemies[i];
@@ -466,6 +470,7 @@ void Player::doAttack()
 					speed.x -= knockback / knockbackDevider;
 
 				canAttack = false;
+				s_bullet->play();
 			}
 		}
 
@@ -705,7 +710,7 @@ void Player::changeBoxPosition()
 		int lz = int(float(x * x) + float(y * y));
 		lz = sqrt(float (lz));
 
-		if (lz > 15)
+		if (lz > 15 && y > 4)
 			possible = true;
 
 		if (map->returnColMap(y, x) == 0 && map->returnColMap(y + 1, x) == 1 && possible)

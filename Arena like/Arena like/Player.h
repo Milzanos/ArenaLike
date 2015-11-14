@@ -121,6 +121,8 @@ private:
 	vector<Enemy*> enemies;
 	vector<Base*> hearts;
 	vector<Bullet*> bullets;
+
+	sf::Music* s_bullet = NULL;
 	
 	string resetLevel = "PRESS SPACE TO RESTART";
 	bool noHeartsLeft = false;
