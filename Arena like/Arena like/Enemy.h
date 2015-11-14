@@ -16,7 +16,7 @@ public:
 
 private:
 	void collision();
-	hv::bVec2 collisionCheck(hv::position other);
+	hv::bVec3 collisionCheck(hv::position other);
 	void checkMovement();
 	void doMovement();
 	void updateTexture();

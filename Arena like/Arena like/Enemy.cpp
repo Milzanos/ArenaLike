@@ -104,7 +104,7 @@ void Enemy::collision()
 			{
 				if (map->returnColMap(row + enemyPos.y, pos + enemyPos.x) != map->NOTHING)
 				{
-					hv::bVec2 temp = collisionCheck({ (pos + enemyPos.x) * map->tileSize.x, (row + enemyPos.y) * map->tileSize.y + map->offset });
+					hv::bVec3 temp = collisionCheck({ (pos + enemyPos.x) * map->tileSize.x, (row + enemyPos.y) * map->tileSize.y + map->offset });
 
 					if (temp.x)
 						speed.x = 0,
@@ -113,7 +113,7 @@ void Enemy::collision()
 					if (temp.y)
 						resetY = true;
 
-					if (temp.x || temp.y)
+					if (temp.z)
 					{
 						if (map->returnColMap(enemyPos.y + row, enemyPos.x + pos) == map->JUMP)
 							speed.y = -jumpHeight,
@@ -145,9 +145,9 @@ void Enemy::collision()
 		speed.y = 0;
 }
 
-hv::bVec2 Enemy::collisionCheck(hv::position other)
+hv::bVec3 Enemy::collisionCheck(hv::position other)
 {
-	hv::bVec2 bVec = { false, false };
+	hv::bVec3 bVec = { false, false, false };
 	hv::position temp = position;
 	temp.add(speed);
 
@@ -165,6 +165,12 @@ hv::bVec2 Enemy::collisionCheck(hv::position other)
 		cY.y - map->tileSize.y < other.y &&
 		cY.y + body->getSize().y > other.y)
 		bVec.y = true;
+
+	if (cY.x - map->tileSize.x < other.x &&
+		cY.x + body->getSize().x > other.x &&
+		cY.y < other.y &&
+		cY.y + body->getSize().y > other.y)
+		bVec.z = true;
 
 	return bVec;
 }
