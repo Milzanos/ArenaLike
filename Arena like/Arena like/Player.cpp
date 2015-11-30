@@ -54,6 +54,16 @@ Player::Player(int lvl, Window* window, musicManager* mManager, hv::position pos
 		hearts.push_back(new Base(window, map, { 0,0 }, "../resources/images/heart.png"));
 
 	setScreenSize(window->screenSize.x, window->screenSize.y);
+
+	int temp = 0;
+	bool exists = true;
+	while (exists)
+	{
+		temp++;
+		fstream fin("../resources/guns/gun" + to_string(temp) + ".GUN");
+		exists = fin.good();
+	}
+	maxAmountOfWeapons = temp;
 }
 
 Player::~Player()
@@ -552,64 +562,51 @@ void Player::updateTexture()
 
 void Player::switchWeapon()
 {
-	int rInt = rand() % 5 + 1;
+	int rInt = rand() % 4 + 1;
 
 	while(rInt == currentWeapon)
-		rInt = rand() % 5 + 1;
+		rInt = rand() % 4 + 1;
 
-	switch (rInt)
+	char ch;
+	string str;
+	int attribute = 0;
+	fstream fin("../resources/guns/gun" + to_string(rInt) + ".GUN", fstream::in);
+	while (fin >> noskipws >> ch)
 	{
-	case(1) :
-		gunName= "PISTOL";
-		gunType = PISTOL;
-		attackSwitch = 0.f;
-		currentWeapon = 1;
-		damage = 0.5f;
-		knockback = 2.5f;
-		spread = 0.f;
-		break;
-	case(2) :
-		gunName = "MACHINE GUN";
-		gunType = MACHINEGUN;
-		attackSwitch = 1.f / 14.f;
-		currentWeapon = 2;
-		damage = 0.5f;
-		knockback = 2.5f;
-		spread = 1.f;
-		break;
-	case(3) :
-		gunName = "MINIGUN";
-		gunType = MACHINEGUN;
-		attackSwitch = 1.f / 50.f;
-		currentWeapon = 3;
-		damage = 0.5f;
-		knockback = 2.5f;
-		spread = 2.f;
-		break;
-	case(4) :
-		gunName = "SHOTGUN";
- 		gunType = SHOTGUN;
-		attackSwitch = 1.f / 2.f;
-		currentWeapon = 4;
-		damage = 0.5f;
-		knockback = 2.0f;
-		spread = 2.f;
-		break;
-	case(5) :
-		gunName = "DUAL PISTOLS";
-		gunType = DUAL_PISTOL;
-		attackSwitch = 0.f;
-		currentWeapon = 5;
-		damage = 0.5f;
-		knockback = 0.f;
-		spread = 0.f;
-		break;
+		if (ch != '\n')
+		{
+			str += ch;
+		}
+		else
+		{
+			if (attribute == 0)
+				gunName = str;
+			else if (attribute == 1)
+				loadGunString(gunType, str);
+			else if (attribute == 2)
+				loadGunString(attackSwitch, str),
+				attackSwitch /= 100;
+			else if (attribute == 3)
+				loadGunString(damage, str),
+				damage /= 10;
+			else if (attribute == 4)
+				loadGunString(knockback, str),
+				knockback /= 10;
+			else if (attribute == 5)
+				loadGunString(spread, str),
+				spread /= 10;
+
+			attribute++;
+			str.clear();
+		}
 	}
 
-	textureGun->loadFromFile("../resources/images/guns/gun" + to_string(currentWeapon) + ".png");
+
+ 	textureGun->loadFromFile("../resources/images/guns/gun" + to_string(rInt) + ".png");
 	maxScore += 30;
 	displayName = true;
 	displayTimer = 0.f;
+	currentWeapon = rInt;
 }
 
 void Player::bulletCollisionEnemies()
@@ -741,4 +738,40 @@ void Player::boxAnimation()
 	if (boxAniTimer >= boxAniSwitch)
 		boxAniTimer = 0.f,
 		boxAni = false;
+}
+
+void Player::loadGunString(int& integer, string& str)
+{
+	for (int i = str.size(); i > 0;  i--)
+	{
+		if (i == 1)
+			integer = str[i - 1] - 48;
+		else if (i == 2)
+			integer += (str[i - 1] - 48) * 10;
+		else if (i == 3)
+			integer += (str[i - 1] - 48) * 100;
+		else if (i == 4)
+			integer += (str[i - 1] - 48) * 1000;
+		else if (i == 5)
+			integer += (str[i - 1] - 48) * 10000;
+	}
+}
+
+void Player::loadGunString(float& integer, string& str)
+{
+	for (int i = str.size(); i > 0; i--)
+	{
+		int temp = (str.size() - 1) - (i - 1);
+
+		if (i == 1)
+			integer += float(int(str[temp]) - 48);
+		else if (i == 2)
+			integer += float(int(str[temp]) - 48) * 10;
+		else if (i == 3)
+			integer += float(int(str[temp]) - 48) * 100;
+		else if (i == 4)
+			integer += (str[temp] - 48) * 1000;
+		else if (i == 5)
+			integer += (str[temp] - 48) * 10000;
+	}
 }

@@ -34,6 +34,8 @@ private:
 	void Killed();
 	void changeBoxPosition();
 	void boxAnimation();
+	void loadGunString(int& integer, string& str);
+	void loadGunString(float& integer, string& str);
 	
 public:
 	bool returnToMenu = false;
@@ -105,6 +107,7 @@ private:
 	int currentWeapon = 1;
 	float knockback = 2.5f;
 	float knockbackDevider = 60.f;
+	int maxAmountOfWeapons = 0;
 
 	string gunName;
 	bool displayName = false;
