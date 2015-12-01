@@ -18,7 +18,6 @@ public:
 	void toggleFullScreen();
 	void close();
 	bool getFullScreen();
-	hv::position getMousePosition();
 
 public:
 	hv::size screenSize{ 0,0 };

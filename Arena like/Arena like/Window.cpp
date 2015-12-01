@@ -97,11 +97,3 @@ bool Window::getFullScreen()
 {
 	return realFullScreen;
 }
-
-hv::position Window::getMousePosition()
-{
-	sf::Vector2i temp;
-
-	temp = sf::Mouse::getPosition(*window);
-	return hv::position(int(temp.x), int(temp.y));
-}
