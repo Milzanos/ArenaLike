@@ -32,26 +32,23 @@ int main()
 			menu->update();
 			m_manager->updateSound(menu->volume, menu->playMusic);
 
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad1) && sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad5) && sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad3))
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num1))
 			{
-				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num1))
-				{
-					menu->inMenu = false;
-					inEditor = true;
-					editor_lvl = 1;
-				}
-				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num2))
-				{
-					menu->inMenu = false;
-					inEditor = true;
-					editor_lvl = 2;
-				}
-				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num3))
-				{
-					menu->inMenu = false;
-					inEditor = true;
-					editor_lvl = 3;
-				}
+				menu->inMenu = false;
+				inEditor = true;
+				editor_lvl = 1;
+			}
+			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num2))
+			{
+				menu->inMenu = false;
+				inEditor = true;
+				editor_lvl = 2;
+			}
+			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num3))
+			{
+				menu->inMenu = false;
+				inEditor = true;
+				editor_lvl = 3;
 			}
 
 			if (!menu->inMenu)
